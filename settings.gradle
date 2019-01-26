@@ -1,0 +1,3 @@
+rootProject.name = 'blueboard'
+
+include 'frontend'

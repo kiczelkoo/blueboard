@@ -1,0 +1,21 @@
+plugins {
+  id "com.moowork.node" version "1.2.0"
+}
+
+
+
+version '0.0.1'
+
+node {
+  version = '10.15.0'
+  npmVersion = '6.4.1'
+  download = true
+  workDir = file("${project.buildDir}/node")
+  nodeModulesDir = file("${project.projectDir}")
+}
+
+task build(type: NpmTask) {
+  args = ['run', 'build']
+}
+
+build.dependsOn(npm_install)
