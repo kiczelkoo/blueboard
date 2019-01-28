@@ -32,7 +32,7 @@ dependencies {
 }
 
 bootJar {
-    from('frontend/dist') {
+    from('frontend/dist/frontend') {
         //Public is a default supported Spring Boot resources directory.
         into 'static'
     }
