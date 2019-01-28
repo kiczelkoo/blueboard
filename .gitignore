@@ -23,4 +23,11 @@
 /nbbuild/
 /dist/
 /nbdist/
-/.nb-gradle/
+/.nb-gradle/.gradle\
+build/
+.idea/
+.gradle/
+/frontend/build/
+/frontend/dist/
+/frontend/node_modules/
+dist\
