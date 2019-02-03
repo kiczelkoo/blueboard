@@ -1,13 +1,13 @@
-package com.shipit.blueboard;
+package com.shipit.blueboard.model;
 
-public class HelloMessage {
+public class Operation {
 
     private String name;
 
-    public HelloMessage() {
+    public Operation() {
     }
 
-    public HelloMessage(String name) {
+    public Operation(String name) {
         this.name = name;
     }
 
