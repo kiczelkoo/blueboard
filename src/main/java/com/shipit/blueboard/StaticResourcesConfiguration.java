@@ -38,6 +38,9 @@ public class StaticResourcesConfiguration extends WebMvcConfigurerAdapter {
 
         @Override
         public void addResourceHandlers(ResourceHandlerRegistry registry) {
+
+            // adding comment to see if travis can build the project from my commit
+            // TODO - see if it's needed
             //Add all static files
 //            Integer cachePeriod = resourceProperties.getCache().getPeriod();
             registry.addResourceHandler(STATIC_RESOURCES)
