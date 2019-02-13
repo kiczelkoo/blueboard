@@ -11,7 +11,8 @@ public class BlueboardController {
     @MessageMapping("/operation")
     @SendTo("/topic/operation")
     public Operation greeting(Operation operation) throws Exception {
-        Thread.sleep(1000); // simulated delay
+        System.out.println("Msg received: " + operation.getName());
+//        Thread.sleep(1000); // simulated delay
         return operation;
     }
 

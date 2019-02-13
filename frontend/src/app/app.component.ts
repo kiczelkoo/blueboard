@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
+import { MessagingService } from './messaging.service';
 
 @Component({
   selector: 'app-root',
@@ -9,52 +10,43 @@ import * as SockJS from 'sockjs-client';
 })
 export class AppComponent {
   title = 'Blueboard';
-    greetings: string[] = [];
-   showConversation: boolean = false;
-   ws: any;
-   name: string;
-   disabled: boolean;
+  greetings: string[] = [];
+  showConversation: boolean = false;
+  name: string;
+  disabled: boolean;
 
-   constructor(){}
+  constructor(private messagingService: MessagingService) { }
 
-   connect() {
-     //connect to stomp where stomp endpoint is exposed
-     //let ws = new SockJS(http://localhost:8080/gs-guide-websocket);
-     let socket = new WebSocket("ws://localhost:8080/gs-guide-websocket");
-     this.ws = Stomp.over(socket);
-     let that = this;
-     this.ws.connect({}, function(frame) {
-       that.ws.subscribe("/topic/operation", function(message) {
-         console.log(message)
-         that.showGreeting(message.body);
-       });
-       that.disabled = true;
-     });
-   }
+  connect() {
+    let that = this;
+    this.messagingService.connect().subscribe(msg => {
+      console.log('subscribed', msg);
+        that.showGreeting(msg);
+    })
+    that.disabled = true;
+  }
 
-   disconnect() {
-     if (this.ws != null) {
-       this.ws.ws.close();
-     }
-     this.setConnected(false);
-     console.log("Disconnected");
-   }
+  disconnect() {
+    this.messagingService.disconnect();
+    this.setConnected(false);
+    console.log("Disconnected");
+  }
 
-   sendName() {
-     let data = JSON.stringify({
-       'name' : this.name
-     })
-     this.ws.send("/app/operation", {}, data);
-   }
+  sendName() {
+    let data = JSON.stringify({
+      'name': this.name
+    })
+    this.messagingService.senMessage(data);
+  }
 
-   showGreeting(message) {
-     this.showConversation = true;
-     this.greetings.push(JSON.parse(message).name)
-   }
+  showGreeting(message) {
+    this.showConversation = true;
+    this.greetings.push(JSON.parse(message).name)
+  }
 
-   setConnected(connected) {
-     this.disabled = connected;
-     this.showConversation = connected;
-     this.greetings = [];
-   }
+  setConnected(connected) {
+    this.disabled = connected;
+    this.showConversation = connected;
+    this.greetings = [];
+  }
 }
