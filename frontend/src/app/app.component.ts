@@ -10,44 +10,5 @@ import { MessagingService } from './canvas/messaging.service';
 })
 export class AppComponent {
   title = 'Blueboard';
-  greetings: string[] = [];
-  showConversation: boolean = false;
-  name: string;
-  disabled: boolean;
 
-  constructor(private messagingService: MessagingService) { }
-
-  connect() {
-    // let that = this;
-    // this.messagingService.connect().subscribe(msg => {
-    //   console.log('subscribed', msg);
-    //   console.log(msg);
-    //     // that.showGreeting(msg);
-    // })
-    // that.disabled = true;
-  }
-
-  disconnect() {
-    this.messagingService.disconnect();
-    this.setConnected(false);
-    console.log("Disconnected");
-  }
-
-  sendName() {
-    let data = JSON.stringify({
-      'name': this.name
-    });
-    this.messagingService.senMessage(data);
-  }
-
-  showGreeting(message) {
-    this.showConversation = true;
-    this.greetings.push(JSON.parse(message).name)
-  }
-
-  setConnected(connected) {
-    this.disabled = connected;
-    this.showConversation = connected;
-    this.greetings = [];
-  }
 }

@@ -96,8 +96,8 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
           currentPos: new MyPosition(currentPos.x, currentPos.y),
           prevPos: new MyPosition(prevPos.x, prevPos.y)
         };
-
-        this.messagingService.senMessage(JSON.stringify(operation));
+        that.drawingService.drawOnCanvas(operation, that.cx);
+        that.messagingService.senMessage(JSON.stringify(operation));
       });
   }
 
