@@ -5,6 +5,7 @@ import { MessagingService } from './messaging.service';
 import { DrawingService } from './drawing.service';
 import { Operation } from './operation';
 import { MyPosition } from './my-position';
+import { ToolMenuService } from '../tool-menu/tool-menu.service';
 
 @Component({
   selector: 'app-canvas',
@@ -13,7 +14,7 @@ import { MyPosition } from './my-position';
 })
 export class CanvasComponent implements AfterViewInit, OnDestroy {
 
-  constructor(private messagingService: MessagingService, private drawingService: DrawingService) { }
+  constructor(private messagingService: MessagingService, private drawingService: DrawingService, private toolMenuService: ToolMenuService) { }
 
 
   ngOnInit() {
@@ -40,7 +41,12 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
 
     this.cx.lineWidth = 3;
     this.cx.lineCap = 'round';
-    this.cx.strokeStyle = 'orange';
+    this.cx.strokeStyle = 'black';
+
+    this.toolMenuService.colorChange.subscribe((color) => {
+      console.log('new color!');
+      this.cx.strokeStyle = color;
+    })
 
     let that = this;
 

@@ -4,11 +4,13 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { CanvasComponent } from './canvas/canvas.component';
+import { ToolMenuComponent } from './tool-menu/tool-menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CanvasComponent
+    CanvasComponent,
+    ToolMenuComponent
   ],
   imports: [
     BrowserModule,
