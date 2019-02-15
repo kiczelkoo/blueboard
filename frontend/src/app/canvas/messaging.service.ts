@@ -3,15 +3,14 @@ import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import { Observable, of } from 'rxjs';
 
-
 @Injectable({
     providedIn: 'root'
 })
 export class MessagingService {
 
-    // serverUrl = 'blueboard.azurewebsites.net';
-  serverUrl = 'localhost:8080';
-    webSocketEndpoit: string = 'ws://' + this.serverUrl +'/gs-guide-websocket';
+    serverUrl = 'wss://blueboard.azurewebsites.net';
+    // serverUrl = 'ws://localhost:8080';
+    webSocketEndpoit: string = this.serverUrl + '/gs-guide-websocket';
     subscribeEndpoint: string = '/topic/operation';
     sendEndpoint: string = '/app/operation';
 

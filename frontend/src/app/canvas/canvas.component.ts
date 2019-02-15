@@ -6,6 +6,7 @@ import { DrawingService } from './drawing.service';
 import { Operation } from './operation';
 import { MyPosition } from './my-position';
 import { ToolMenuService } from '../tool-menu/tool-menu.service';
+import { v4 as uuid } from 'uuid';
 
 @Component({
   selector: 'app-canvas',
@@ -15,7 +16,6 @@ import { ToolMenuService } from '../tool-menu/tool-menu.service';
 export class CanvasComponent implements AfterViewInit, OnDestroy {
 
   constructor(private messagingService: MessagingService, private drawingService: DrawingService, private toolMenuService: ToolMenuService) { }
-
 
   ngOnInit() {
   }
@@ -46,13 +46,15 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
     this.toolMenuService.colorChange.subscribe((color) => {
       console.log('new color!');
       this.cx.strokeStyle = color;
+      this.cx.lineWidth = 3;
+      this.cx.lineCap = 'round';
     });
 
-    this.toolMenuService.remover.subscribe(()=> {
+    this.toolMenuService.remover.subscribe(() => {
       this.cx.strokeStyle = 'white';
       this.cx.lineWidth = 10;
       this.cx.lineCap = 'square';
-    }); 
+    });
 
     let that = this;
 
@@ -101,6 +103,7 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
         };
 
         const operation: Operation = {
+          uuid: uuid(),
           name: 'line',
           lineCap: that.cx.lineCap,
           lineWidth: that.cx.lineWidth,

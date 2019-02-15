@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Operation {
 
+    private String uuid;
     private String name;
     private MyPosition currentPos;
     private MyPosition prevPos;
@@ -18,13 +19,22 @@ public class Operation {
     public Operation(@JsonProperty("name") String name, @JsonProperty("currentPos") MyPosition currentPos,
                      @JsonProperty("prevPos") MyPosition prevPos, @JsonProperty("lineWidth") int lineWidth,
                      @JsonProperty("lineColor") String lineColor,
-                     @JsonProperty("lineCap") String lineCap) {
+                     @JsonProperty("lineCap") String lineCap, @JsonProperty("uuid") String uuid) {
         this.name = name;
         this.currentPos = currentPos;
         this.prevPos = prevPos;
         this.lineWidth = lineWidth;
         this.lineColor = lineColor;
         this.lineCap = lineCap;
+        this.uuid = uuid;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public MyPosition getCurrentPos() {
