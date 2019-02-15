@@ -1,6 +1,10 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { switchMap, takeUntil, pairwise } from 'rxjs/operators'
+import { MessagingService } from '../messaging.service';
+import { DrawingService } from './drawing.service';
+import { Operation } from '../operation';
+import { MyPosition } from '../my-position';
 
 @Component({
   selector: 'app-canvas',
@@ -9,7 +13,8 @@ import { switchMap, takeUntil, pairwise } from 'rxjs/operators'
 })
 export class CanvasComponent implements AfterViewInit {
 
-  constructor() { }
+  constructor(private messagingService: MessagingService, private drawingService: DrawingService) { }
+
 
   ngOnInit() {
   }
@@ -30,12 +35,13 @@ export class CanvasComponent implements AfterViewInit {
 
     this.cx.lineWidth = 3;
     this.cx.lineCap = 'round';
-    this.cx.strokeStyle = '#000';
+    this.cx.strokeStyle = 'orange';
 
     this.captureEvents(canvasEl);
   }
-  
+
   private captureEvents(canvasEl: HTMLCanvasElement) {
+    let that = this;
     // this will capture all mousedown events from the canvas element
     fromEvent(canvasEl, 'mousedown')
       .pipe(
@@ -56,33 +62,31 @@ export class CanvasComponent implements AfterViewInit {
       )
       .subscribe((res: [MouseEvent, MouseEvent]) => {
         const rect = canvasEl.getBoundingClientRect();
-  
+
         // previous and current position with the offset
         const prevPos = {
           x: res[0].clientX - rect.left,
           y: res[0].clientY - rect.top
         };
-  
         const currentPos = {
           x: res[1].clientX - rect.left,
           y: res[1].clientY - rect.top
         };
-  
-        // this method we'll implement soon to do the actual drawing
-        this.drawOnCanvas(prevPos, currentPos);
+        
+        const operation: Operation = {
+          name: 'line',
+          lineCap: that.cx.lineCap,
+          lineWidth: that.cx.lineWidth,
+          lineColor: that.cx.strokeStyle,
+          currentPos: new MyPosition (currentPos.x, currentPos.y),
+          prevPos: new MyPosition (prevPos.x, prevPos.y)
+        };
+
+        that.drawingService.drawOnCanvas(operation, that.cx);
+        this.messagingService.senMessage(JSON.stringify(operation));
       });
   }
 
-  private drawOnCanvas(prevPos: { x: number, y: number }, currentPos: { x: number, y: number }) {
-    if (!this.cx) { return; }
 
-    this.cx.beginPath();
-
-    if (prevPos) {
-      this.cx.moveTo(prevPos.x, prevPos.y); // from
-      this.cx.lineTo(currentPos.x, currentPos.y);
-      this.cx.stroke();
-    }
-  }
 
 }

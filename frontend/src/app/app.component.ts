@@ -21,7 +21,8 @@ export class AppComponent {
     let that = this;
     this.messagingService.connect().subscribe(msg => {
       console.log('subscribed', msg);
-        that.showGreeting(msg);
+      console.log(msg);
+        // that.showGreeting(msg);
     })
     that.disabled = true;
   }
@@ -35,7 +36,7 @@ export class AppComponent {
   sendName() {
     let data = JSON.stringify({
       'name': this.name
-    })
+    });
     this.messagingService.senMessage(data);
   }
 

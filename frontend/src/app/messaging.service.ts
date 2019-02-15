@@ -8,9 +8,9 @@ import { Observable, of } from 'rxjs';
 })
 export class MessagingService {
 
-    serverUrl = 'blueboard.azurewebsites.net';
-  // serverUrl = 'localhost:8080';
-    webSocketEndpoit: string = 'wss://' + this.serverUrl +'/gs-guide-websocket';
+    serverUrl = 'wss://blueboard.azurewebsites.net';
+    // serverUrl = 'ws://localhost:8080';
+    webSocketEndpoit: string = this.serverUrl + '/gs-guide-websocket';
     subscribeEndpoint: string = '/topic/operation';
     sendEndpoint: string = '/app/operation';
 
