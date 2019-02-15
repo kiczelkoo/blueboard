@@ -1,17 +1,17 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Input, OnDestroy } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { switchMap, takeUntil, pairwise } from 'rxjs/operators'
-import { MessagingService } from '../messaging.service';
+import { MessagingService } from './messaging.service';
 import { DrawingService } from './drawing.service';
-import { Operation } from '../operation';
-import { MyPosition } from '../my-position';
+import { Operation } from './operation';
+import { MyPosition } from './my-position';
 
 @Component({
   selector: 'app-canvas',
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.css']
 })
-export class CanvasComponent implements AfterViewInit {
+export class CanvasComponent implements AfterViewInit, OnDestroy {
 
   constructor(private messagingService: MessagingService, private drawingService: DrawingService) { }
 
@@ -19,10 +19,15 @@ export class CanvasComponent implements AfterViewInit {
   ngOnInit() {
   }
 
+  ngOnDestroy() {
+    this.messagingService.disconnect();
+    console.log("Disconnected");
+  }
+
   @ViewChild('canvas') public canvas: ElementRef;
 
-  @Input() public width = 400;
-  @Input() public height = 400;
+  @Input() public width = 800;
+  @Input() public height = 600;
 
   private cx: CanvasRenderingContext2D;
 
@@ -36,6 +41,16 @@ export class CanvasComponent implements AfterViewInit {
     this.cx.lineWidth = 3;
     this.cx.lineCap = 'round';
     this.cx.strokeStyle = 'orange';
+
+    let that = this;
+
+    this.messagingService.connect().subscribe(msg => {
+      console.log('subscribed', msg);
+      console.log(msg);
+      let incomingOp: Operation = JSON.parse(msg.toString());
+
+      that.drawingService.drawOnCanvas(incomingOp, that.cx);
+    });
 
     this.captureEvents(canvasEl);
   }
@@ -72,17 +87,16 @@ export class CanvasComponent implements AfterViewInit {
           x: res[1].clientX - rect.left,
           y: res[1].clientY - rect.top
         };
-        
+
         const operation: Operation = {
           name: 'line',
           lineCap: that.cx.lineCap,
           lineWidth: that.cx.lineWidth,
           lineColor: that.cx.strokeStyle,
-          currentPos: new MyPosition (currentPos.x, currentPos.y),
-          prevPos: new MyPosition (prevPos.x, prevPos.y)
+          currentPos: new MyPosition(currentPos.x, currentPos.y),
+          prevPos: new MyPosition(prevPos.x, prevPos.y)
         };
 
-        that.drawingService.drawOnCanvas(operation, that.cx);
         this.messagingService.senMessage(JSON.stringify(operation));
       });
   }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
-import { MessagingService } from './messaging.service';
+import { MessagingService } from './canvas/messaging.service';
 
 @Component({
   selector: 'app-root',
@@ -18,13 +18,13 @@ export class AppComponent {
   constructor(private messagingService: MessagingService) { }
 
   connect() {
-    let that = this;
-    this.messagingService.connect().subscribe(msg => {
-      console.log('subscribed', msg);
-      console.log(msg);
-        // that.showGreeting(msg);
-    })
-    that.disabled = true;
+    // let that = this;
+    // this.messagingService.connect().subscribe(msg => {
+    //   console.log('subscribed', msg);
+    //   console.log(msg);
+    //     // that.showGreeting(msg);
+    // })
+    // that.disabled = true;
   }
 
   disconnect() {
