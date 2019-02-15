@@ -7,12 +7,13 @@ export class ToolMenuService {
 
   @Output() colorChange: EventEmitter<string> = new EventEmitter();
 
-  @Output() remover: EventEmitter<string> = new EventEmitter();
+  @Output() remover: EventEmitter<boolean> = new EventEmitter();
 
   constructor() { }
 
   public clear() {
     console.log("remover selected");
+    this.remover.emit(true);
   }
 
   public colorSelection(color: string) {

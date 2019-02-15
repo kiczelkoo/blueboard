@@ -46,7 +46,13 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
     this.toolMenuService.colorChange.subscribe((color) => {
       console.log('new color!');
       this.cx.strokeStyle = color;
-    })
+    });
+
+    this.toolMenuService.remover.subscribe(()=> {
+      this.cx.strokeStyle = 'white';
+      this.cx.lineWidth = 10;
+      this.cx.lineCap = 'square';
+    }); 
 
     let that = this;
 
