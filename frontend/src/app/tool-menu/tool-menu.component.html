@@ -6,6 +6,8 @@
   <button type="button" class="button red" (click)="toolMenuService.colorSelection('red')">Red</button>
   <button type="button" class="button yellow" (click)="toolMenuService.colorSelection('yellow')">Yellow</button>
   <button type="button" class="button text" disabled="true">Text</button>
-  <button type="button" class="button image" disabled="true">Image</button>
   <button type="button" class="button save" disabled="true">Save</button>
+  <input #file type="file" accept='image/*' (change)="preview(file.files)" />
+  <img [src]="imgURL" height="200" *ngIf="imgURL">
+
 </div>

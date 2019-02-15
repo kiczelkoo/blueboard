@@ -9,6 +9,10 @@ export class ToolMenuService {
 
   @Output() remover: EventEmitter<boolean> = new EventEmitter();
 
+  @Output() image: EventEmitter<any> = new EventEmitter();
+
+  imgURL: any;
+
   constructor() { }
 
   public clear() {
@@ -20,4 +24,11 @@ export class ToolMenuService {
     console.log('color selected: ', color);
     this.colorChange.emit(color);
   }
+
+  public onFileSelected(image) {
+    let img = new Image();
+    img.src = image;
+    this.image.emit(img);
+  }
+
 }

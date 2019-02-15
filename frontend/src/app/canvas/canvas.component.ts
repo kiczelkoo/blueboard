@@ -56,6 +56,10 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
       this.cx.lineCap = 'square';
     });
 
+    this.toolMenuService.image.subscribe((image) => {
+      this.cx.drawImage(image, 0, 0);
+    })
+
     let that = this;
 
     this.messagingService.connect().subscribe(msg => {
