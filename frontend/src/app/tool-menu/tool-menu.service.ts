@@ -11,6 +11,8 @@ export class ToolMenuService {
 
   @Output() image: EventEmitter<any> = new EventEmitter();
 
+  @Output() save: EventEmitter<any> = new EventEmitter();
+
   imgURL: any;
 
   constructor() { }
@@ -29,6 +31,10 @@ export class ToolMenuService {
     // let img = new Image();
     // img.src = image;
     this.image.emit(image);
+  }
+
+  public onSave(event){
+    this.save.emit(event);
   }
 
 }

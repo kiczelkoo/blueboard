@@ -39,6 +39,8 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
     canvasEl.width = this.width;
     canvasEl.height = this.height;
 
+    this.cx.fillStyle = "white";
+    this.cx.fillRect(0, 0, this.width, this.height);
     this.cx.lineWidth = 3;
     this.cx.lineCap = 'round';
     this.cx.strokeStyle = 'black';
@@ -60,7 +62,12 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
       const operation = this.createImageDrawingOperation(image, { x: 0, y: 0 });
       this.messagingService.senMessage(JSON.stringify(operation));
       this.drawingService.drawImageOnCanvas(operation, this.cx);
-    })
+    });
+
+    this.toolMenuService.save.subscribe((event) => {
+      const dataUrl = canvasEl.toDataURL('image/png');
+      event.target.href = dataUrl;
+    });
 
     let that = this;
 
