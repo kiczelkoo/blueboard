@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ToolMenuService } from './tool-menu.service';
 import { HttpClient } from '@angular/common/http';
 
@@ -9,17 +9,15 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ToolMenuComponent implements OnInit {
 
-  // public imagePath;
-  imgURL: any;
+  private imgURL: any;
   public message: string;
-
-
+  
   constructor(private toolMenuService: ToolMenuService) { }
 
   ngOnInit() {
   }
 
-  public preview(files) {
+  public onFileSelected(files) {
     if (files.length === 0)
       return;
 
@@ -30,14 +28,16 @@ export class ToolMenuComponent implements OnInit {
     }
 
     let reader = new FileReader();
-    // this.imagePath = files;
-    reader.readAsDataURL(files[0]);
+    let that = this;
     reader.onloadend = (_event) => {
-      this.imgURL = reader.result;
-      // console.log(this.imgURL);
-      this.toolMenuService.onFileSelected(this.imgURL);
+      console.log('on loadend ');
+      that.toolMenuService.onFileSelected(that.imgURL);
     }
-    
+    reader.onload = (_event) => {
+      that.imgURL = reader.result;
+      console.log('on load');
+    }
+    reader.readAsDataURL(files[0]);
   }
 
 }
