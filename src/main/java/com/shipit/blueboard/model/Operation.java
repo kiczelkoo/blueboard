@@ -11,6 +11,8 @@ public class Operation {
     private int lineWidth;
     private String lineColor;
     private String lineCap;
+    private String image;
+
 
     public Operation(String name) {
         this.name = name;
@@ -19,7 +21,7 @@ public class Operation {
     public Operation(@JsonProperty("name") String name, @JsonProperty("currentPos") MyPosition currentPos,
                      @JsonProperty("prevPos") MyPosition prevPos, @JsonProperty("lineWidth") int lineWidth,
                      @JsonProperty("lineColor") String lineColor,
-                     @JsonProperty("lineCap") String lineCap, @JsonProperty("uuid") String uuid) {
+                     @JsonProperty("lineCap") String lineCap, @JsonProperty("uuid") String uuid, @JsonProperty("image") String image) {
         this.name = name;
         this.currentPos = currentPos;
         this.prevPos = prevPos;
@@ -27,6 +29,15 @@ public class Operation {
         this.lineColor = lineColor;
         this.lineCap = lineCap;
         this.uuid = uuid;
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getUuid() {

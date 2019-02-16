@@ -57,7 +57,9 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
     });
 
     this.toolMenuService.image.subscribe((image) => {
-      this.cx.drawImage(image, 0, 0);
+      const operation = this.createImageDrawingOperation(image, { x: 0, y: 0 });
+      this.messagingService.senMessage(JSON.stringify(operation));
+      this.drawingService.drawImageOnCanvas(operation, this.cx);
     })
 
     let that = this;
@@ -66,8 +68,11 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
       console.log('subscribed', msg);
       console.log(msg);
       let incomingOp: Operation = JSON.parse(msg.toString());
-
-      that.drawingService.drawOnCanvas(incomingOp, that.cx);
+      if (incomingOp.name === 'line') {
+        that.drawingService.drawOnCanvas(incomingOp, that.cx);
+      } else if (incomingOp.name === 'image') {
+        that.drawingService.drawImageOnCanvas(incomingOp, that.cx);
+      }
     });
 
     this.captureEvents(canvasEl);
@@ -106,20 +111,39 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
           y: res[1].clientY - rect.top
         };
 
-        const operation: Operation = {
-          uuid: uuid(),
-          name: 'line',
-          lineCap: that.cx.lineCap,
-          lineWidth: that.cx.lineWidth,
-          lineColor: that.cx.strokeStyle,
-          currentPos: new MyPosition(currentPos.x, currentPos.y),
-          prevPos: new MyPosition(prevPos.x, prevPos.y)
-        };
+        const operation = this.createLineDrawingOperation(currentPos, prevPos, that.cx.lineCap, that.cx.lineWidth, that.cx.strokeStyle);
         that.drawingService.drawOnCanvas(operation, that.cx);
         that.messagingService.senMessage(JSON.stringify(operation));
       });
   }
 
+  private createLineDrawingOperation(currentPos, prevPos, lineCap, lineWidth, strokeStyle): Operation {
+    const op: Operation = {
+      uuid: uuid(),
+      name: 'line',
+      image: null,
+      lineCap: lineCap,
+      lineWidth: lineWidth,
+      lineColor: strokeStyle,
+      currentPos: new MyPosition(currentPos.x, currentPos.y),
+      prevPos: new MyPosition(prevPos.x, prevPos.y)
+    };
+    return op;
+  }
 
+
+  private createImageDrawingOperation(image: any, currentPos: any): Operation {
+    const op: Operation = {
+      uuid: uuid(),
+      name: 'image',
+      image: image,
+      lineCap: null,
+      lineWidth: null,
+      lineColor: null,
+      currentPos: new MyPosition(currentPos.x, currentPos.y),
+      prevPos: null
+    };
+    return op;
+  }
 
 }

@@ -26,9 +26,9 @@ export class ToolMenuService {
   }
 
   public onFileSelected(image) {
-    let img = new Image();
-    img.src = image;
-    this.image.emit(img);
+    // let img = new Image();
+    // img.src = image;
+    this.image.emit(image);
   }
 
 }

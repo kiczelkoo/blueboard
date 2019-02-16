@@ -8,4 +8,5 @@ export class Operation {
    lineWidth: number;
    lineColor: any;
    lineCap: any;
+   image: string;
 }
