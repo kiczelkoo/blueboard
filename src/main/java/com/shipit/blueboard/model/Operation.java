@@ -12,6 +12,7 @@ public class Operation {
     private String lineColor;
     private String lineCap;
     private String image;
+    private String boardNumber;
 
 
     public Operation(String name) {
@@ -21,7 +22,9 @@ public class Operation {
     public Operation(@JsonProperty("name") String name, @JsonProperty("currentPos") MyPosition currentPos,
                      @JsonProperty("prevPos") MyPosition prevPos, @JsonProperty("lineWidth") int lineWidth,
                      @JsonProperty("lineColor") String lineColor,
-                     @JsonProperty("lineCap") String lineCap, @JsonProperty("uuid") String uuid, @JsonProperty("image") String image) {
+                     @JsonProperty("lineCap") String lineCap, @JsonProperty("uuid") String uuid,
+                     @JsonProperty("image") String image,
+                     @JsonProperty("boardNumber") String boardNumber) {
         this.name = name;
         this.currentPos = currentPos;
         this.prevPos = prevPos;
@@ -30,6 +33,7 @@ public class Operation {
         this.lineCap = lineCap;
         this.uuid = uuid;
         this.image = image;
+        this.boardNumber = boardNumber;
     }
 
     public String getImage() {
@@ -96,4 +100,11 @@ public class Operation {
         this.name = name;
     }
 
+    public String getBoardNumber() {
+        return boardNumber;
+    }
+
+    public void setBoardNumber(String boardNumber) {
+        this.boardNumber = boardNumber;
+    }
 }

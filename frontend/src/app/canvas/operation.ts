@@ -9,4 +9,5 @@ export class Operation {
    lineColor: any;
    lineCap: any;
    image: string;
+   boardNumber: String;
 }

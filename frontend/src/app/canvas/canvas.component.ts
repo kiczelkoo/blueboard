@@ -15,6 +15,9 @@ import { v4 as uuid } from 'uuid';
 })
 export class CanvasComponent implements AfterViewInit, OnDestroy {
 
+  @Input()
+  boardNumber: String;
+
   constructor(private messagingService: MessagingService, private drawingService: DrawingService, private toolMenuService: ToolMenuService) { }
 
   ngOnInit() {
@@ -75,10 +78,14 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
       console.log('subscribed', msg);
       console.log(msg);
       let incomingOp: Operation = JSON.parse(msg.toString());
-      if (incomingOp.name === 'line') {
-        that.drawingService.drawOnCanvas(incomingOp, that.cx);
-      } else if (incomingOp.name === 'image') {
-        that.drawingService.drawImageOnCanvas(incomingOp, that.cx);
+
+      if(incomingOp.boardNumber === that.boardNumber){
+
+        if (incomingOp.name === 'line') {
+          that.drawingService.drawOnCanvas(incomingOp, that.cx);
+        } else if (incomingOp.name === 'image') {
+          that.drawingService.drawImageOnCanvas(incomingOp, that.cx);
+        }
       }
     });
 
@@ -133,7 +140,8 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
       lineWidth: lineWidth,
       lineColor: strokeStyle,
       currentPos: new MyPosition(currentPos.x, currentPos.y),
-      prevPos: new MyPosition(prevPos.x, prevPos.y)
+      prevPos: new MyPosition(prevPos.x, prevPos.y),
+      boardNumber: this.boardNumber
     };
     return op;
   }
@@ -148,7 +156,8 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
       lineWidth: null,
       lineColor: null,
       currentPos: new MyPosition(currentPos.x, currentPos.y),
-      prevPos: null
+      prevPos: null,
+      boardNumber: this.boardNumber
     };
     return op;
   }
