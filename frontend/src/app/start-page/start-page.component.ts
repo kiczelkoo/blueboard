@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { v4 as uuid } from 'uuid';
 
 
 @Component({
@@ -15,16 +16,24 @@ export class StartPageComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    // this.randomNewBoard = 'aaaaaa';
   }
 
   joinExistingRoom(existingRoomNumber: String){
 
     this.existingBoardNumber = existingRoomNumber;
 
-    console.log("created new room!")
+    console.log("joining room " + this.existingBoardNumber + "!")
 
     this.router.navigateByUrl('/board/' + existingRoomNumber);
+  }
+
+  createNewRoom(){
+
+   let unique = uuid();
+
+    console.log("created new room " + unique + "!")
+
+    this.router.navigateByUrl('/board/' + unique);
   }
 
 }
