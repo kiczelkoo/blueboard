@@ -1,12 +1,12 @@
 <div class="menu">
-  <button type="button" class="button clear" (click)="toolMenuService.clear()">Clear</button>
-  <button type="button" class="button black" (click)="toolMenuService.colorSelection('black')">Black</button>
-  <button type="button" class="button green" (click)="toolMenuService.colorSelection('green')">Green</button>
-  <button type="button" class="button blue" (click)="toolMenuService.colorSelection('blue')">Blue</button>
-  <button type="button" class="button red" (click)="toolMenuService.colorSelection('red')">Red</button>
-  <button type="button" class="button yellow" (click)="toolMenuService.colorSelection('yellow')">Yellow</button>
-  <button type="button" class="button text" disabled="true">Text</button>
-  <a href="#" class="button save" download="my-file-name.png" (click)="toolMenuService.onSave($event)">Download</a>
+  <button type="button" class="button clear base-button " (click)="toolMenuService.clear()">Clear</button>
+  <button type="button" class="button black base-button " (click)="toolMenuService.colorSelection('black')">Black</button>
+  <button type="button" class="base-button button green" (click)="toolMenuService.colorSelection('green')">Green</button>
+  <button type="button" class="base-button button blue" (click)="toolMenuService.colorSelection('blue')">Blue</button>
+  <button type="button" class="base-button button red" (click)="toolMenuService.colorSelection('red')">Red</button>
+  <button type="button" class="base-button button yellow" (click)="toolMenuService.colorSelection('yellow')">Yellow</button>
+  <button type="button" class="base-button button text" disabled="true">Text</button>
+  <a href="#" class="base-button button save" download="my-file-name.png" (click)="toolMenuService.onSave($event)">Download</a>
   <input #file type="file" accept='image/*' (change)="onFileSelected(file.files)" />
   <!-- bez tego wstawianie obrazkow nie dziala, ale jeszcze nie wiem czemu :( -->
   <img [src]="imgURL" height="200" *ngIf="imgURL" hidden=true>

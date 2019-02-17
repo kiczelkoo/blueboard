@@ -1,6 +1,12 @@
 <nav>
-   <button (click)="createNewRoom()">Create a new room</button>
-    join existing room <input #roomNumber>
-    <button (click)="joinExistingRoom(roomNumber.value)">Enter room</button>
+
+  <div class="button-container">
+    <div>Create a new board</div>
+    <div><button type="button" class="board-button" (click)="createNewRoom()">CREATE</button></div>
+  </div>
+  <div class="button-container">
+    <div>Join a board<input #roomNumber placeholder="Board number"/></div>
+    <div><button type="button" class="board-button" (click)="joinExistingRoom(roomNumber.value)">JOIN</button></div>
+  </div>
 </nav>
 

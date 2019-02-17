@@ -1,3 +1,9 @@
+.menu {
+
+  background-color: #e0eaee;
+  margin: 5px;
+}
+
 .button {
     border: none;
     color: black;
@@ -5,13 +11,22 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
+    margin: 4px 4px;
     cursor: pointer;
   }
 
 .black {background-color: black; color: whitesmoke; }
+.clear, .text, .save {background-color: whitesmoke; color: black; }
 .green {background-color: green;} 
 .blue {background-color: blue;} 
 .red {background-color: red;}
 .yellow {background-color: yellow;}
+
+
+.base-button {
+  font-size: 16px;
+  border-radius: 5px;
+  box-shadow: none;
+  font: normal 16px 'Helvetica Neue',Helvetica,Arial;
+  padding: 15px;
+}

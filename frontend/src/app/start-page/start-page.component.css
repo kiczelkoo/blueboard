@@ -1,0 +1,23 @@
+.board-button {
+  background-color: #7c9cda;
+  font-size: 16px;
+  color: white;
+  border-radius: 5px;
+  box-shadow: none;
+  border: solid;
+  font: normal 16px 'Helvetica Neue',Helvetica,Arial;
+  padding: 15px;
+}
+
+.button-container {
+  font: normal 16px 'Helvetica Neue',Helvetica,Arial;
+  display: flex;
+  align-items: center;
+  width: 30%;
+
+  justify-content: center;
+  background-color: #e0eaee;
+  margin: 5px;
+  padding: 5px;
+
+}

@@ -1,6 +1,10 @@
 /* Application-wide Styles */
-h1 {
-  color: #369;
-  font-family: Arial, Helvetica, sans-serif;
+.app-container {
+  background-color: white;
+}
+
+.title {
+  color: #7b8d93;
+  font: normal 12px/18px 'Helvetica Neue',Helvetica,Arial;
   font-size: 250%;
 }
