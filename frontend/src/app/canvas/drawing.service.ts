@@ -32,6 +32,10 @@ export class DrawingService {
   public drawImageOnCanvas(operation: Operation, cx: CanvasRenderingContext2D) {
     let img = new Image();
     img.src = operation.image;
-    cx.drawImage(img, operation.currentPos.x, operation.currentPos.y);
+
+    img.onload = function(){
+      cx.drawImage(img, operation.currentPos.x, operation.currentPos.y);
+    };
+
   }
 }
