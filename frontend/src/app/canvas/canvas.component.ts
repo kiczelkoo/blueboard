@@ -63,7 +63,7 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
 
     this.toolMenuService.image.subscribe((image) => {
       const operation = this.createImageDrawingOperation(image, { x: 0, y: 0 });
-      this.messagingService.senMessage(JSON.stringify(operation));
+      this.messagingService.senMessage(JSON.stringify(operation), this.boardNumber);
       this.drawingService.drawImageOnCanvas(operation, this.cx);
     });
 
@@ -74,19 +74,16 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
 
     let that = this;
 
-    this.messagingService.connect().subscribe(msg => {
+    this.messagingService.connect(that.boardNumber).subscribe(msg => {
       console.log('subscribed', msg);
       console.log(msg);
       let incomingOp: Operation = JSON.parse(msg.toString());
-
-      if(incomingOp.boardNumber === that.boardNumber){
 
         if (incomingOp.name === 'line') {
           that.drawingService.drawOnCanvas(incomingOp, that.cx);
         } else if (incomingOp.name === 'image') {
           that.drawingService.drawImageOnCanvas(incomingOp, that.cx);
         }
-      }
     });
 
     this.captureEvents(canvasEl);
@@ -127,7 +124,7 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
 
         const operation = this.createLineDrawingOperation(currentPos, prevPos, that.cx.lineCap, that.cx.lineWidth, that.cx.strokeStyle);
         that.drawingService.drawOnCanvas(operation, that.cx);
-        that.messagingService.senMessage(JSON.stringify(operation));
+        that.messagingService.senMessage(JSON.stringify(operation), this.boardNumber);
       });
   }
 

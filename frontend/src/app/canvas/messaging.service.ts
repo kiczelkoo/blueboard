@@ -11,20 +11,20 @@ export class MessagingService {
     serverUrl = 'ws://blboard.herokuapp.com';
     // serverUrl = 'ws://localhost:8080';
     webSocketEndpoit: string = this.serverUrl + '/gs-guide-websocket';
-    subscribeEndpoint: string = '/topic/operation';
-    sendEndpoint: string = '/app/operation';
+    subscribeEndpoint: string = '/topic/operation/';
+    sendEndpoint: string = '/app/operation/';
 
     webSocket: any;
 
     constructor() { }
 
-    connect() {
+    connect(boardNumber: String) {
         let socket = new WebSocket(this.webSocketEndpoit);
         this.webSocket = Stomp.over(socket);
         let that = this;
         return new Observable(observer => {
             this.webSocket.connect({}, function (frame) {
-                that.webSocket.subscribe(that.subscribeEndpoint, function (message) {
+                that.webSocket.subscribe(that.subscribeEndpoint + boardNumber, function (message) {
                     console.log(message)
                     observer.next(message.body);
                 });
@@ -40,9 +40,9 @@ export class MessagingService {
         console.log("BB disconnected");
     }
 
-    senMessage(msg: string) {
+    senMessage(msg: string, boardNumber: String) {
         console.log('BB sending message');
-        this.webSocket.send(this.sendEndpoint, {}, msg);
+        this.webSocket.send(this.sendEndpoint + boardNumber, {}, msg);
     }
 
 }

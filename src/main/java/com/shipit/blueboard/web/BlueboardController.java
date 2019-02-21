@@ -8,12 +8,11 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class BlueboardController {
 
-    @MessageMapping("/operation")
-    @SendTo("/topic/operation")
+    @MessageMapping("/operation/{boardNumber}")
+    @SendTo("/topic/operation/{boardNumber}")
     public Operation greeting(Operation operation) throws Exception {
-        System.out.println("Msg received: " + operation.getName());
+        System.out.println("Msg received: " + operation.getName() + " board number: " + operation.getBoardNumber());
 //        Thread.sleep(1000); // simulated delay
         return operation;
     }
-
 }
