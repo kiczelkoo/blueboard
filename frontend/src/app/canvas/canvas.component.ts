@@ -30,8 +30,8 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('canvas') public canvas: ElementRef;
 
-  @Input() public width = 800;
-  @Input() public height = 600;
+  @Input() public width = 1920;
+  @Input() public height = 1080;
 
   private cx: CanvasRenderingContext2D;
 
