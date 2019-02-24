@@ -8,6 +8,9 @@ import { ToolMenuComponent } from './tool-menu/tool-menu.component';
 import { StartPageComponent } from './start-page/start-page.component';
 import { BoardComponent } from './board/board.component';
 import { AppRoutingModule } from './app-routing.module';
+import { NoteComponent } from './note/note.component';
+import { NoteCollectionComponent } from './note-collection/note-collection.component';
+import { DraggableDirective } from './note/draggable.directive';
 
 
 @NgModule({
@@ -16,7 +19,10 @@ import { AppRoutingModule } from './app-routing.module';
     CanvasComponent,
     ToolMenuComponent,
     StartPageComponent,
-    BoardComponent
+    BoardComponent,
+    NoteComponent,
+    NoteCollectionComponent,
+    DraggableDirective
   ],
   imports: [
     BrowserModule,
