@@ -36,14 +36,16 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
       ? (document.querySelector(this.dragHandle) as HTMLElement)
       : this.elementRef.nativeElement;
 
-    this.handle.style.cursor = 'move';
+    
     this.target = document.querySelector(this.dragTarget) as HTMLElement;
+   
+    this.target.style.cursor = 'move';
     this.setupEvents();
   }
 
   private setupEvents() {
     this.zone.runOutsideAngular(() => {
-      const mousedown$ = fromEvent(this.handle, 'mousedown');
+      const mousedown$ = fromEvent(this.target, 'mousedown');
       const mousemove$ = fromEvent(document, 'mousemove');
       const mouseup$ = fromEvent(document, 'mouseup');
 
