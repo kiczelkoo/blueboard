@@ -7,14 +7,17 @@ import {NoteModel} from "../model/NoteModel";
 export class NoteService implements OnInit{
 
 
-  notes = [new NoteModel("note-1"), new NoteModel("note-2"), new NoteModel("note-3")];
+  notes = [new NoteModel("note-1", "target-1"), new NoteModel("note-2", "target-2"), new NoteModel("note-3", "target-3")];
   counter = 4;
 
   constructor() { }
 
   addNote(message: String){
 
-    this.notes.push(new NoteModel('note-' + this.counter.toString()));
+    var handleCssClass = 'note-' + this.counter.toString();
+    var targetCssClass = 'target-' + this.counter.toString();
+
+    this.notes.push(new NoteModel(handleCssClass, targetCssClass));
     this.counter = this.counter + 1;
   }
 

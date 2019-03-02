@@ -15,9 +15,9 @@ import { Subject } from 'rxjs';
 })
 export class DraggableDirective implements AfterViewInit, OnDestroy {
   @Input()
-  dragHandle: string; // to, co presuwamy
+  dragHandle: string; // element, ktory chwytamy kursorem
   @Input()
-  dragTarget: string; // nadrzedny kontener
+  dragTarget: string; // calosc - cala notatka, ktora chcemy przesunac
 
   private target: HTMLElement;
   private handle: HTMLElement;
@@ -31,6 +31,7 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
 
 
     console.log("drag handle: " + this.dragHandle);
+    console.log("drag target: " + this.dragTarget);
 
     this.handle = this.dragHandle
       ? (document.querySelector(this.dragHandle) as HTMLElement)
@@ -39,13 +40,13 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
     
     this.target = document.querySelector(this.dragTarget) as HTMLElement;
    
-    this.target.style.cursor = 'move';
+    this.handle.style.cursor = 'move';
     this.setupEvents();
   }
 
   private setupEvents() {
     this.zone.runOutsideAngular(() => {
-      const mousedown$ = fromEvent(this.target, 'mousedown');
+      const mousedown$ = fromEvent(this.handle, 'mousedown');
       const mousemove$ = fromEvent(document, 'mousemove');
       const mouseup$ = fromEvent(document, 'mouseup');
 

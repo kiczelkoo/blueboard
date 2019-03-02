@@ -1,7 +1,14 @@
-<div [ngClass]="model.cssClass" [draggable]
+<div 
+class="target"
+[ngClass]="model.targetCssClass"
+[draggable]
 
-     dragHandle=".note-collection"
-     [dragTarget]="'.' + model.cssClass"
+     [dragHandle]="'.' + model.handleCssClass"
+     [dragTarget]="'.' + model.targetCssClass"
 >
-  {{model.message}}
+<div>
+  <div [ngClass]="model.handleCssClass">......</div>
+  <div class="textarea-container">
+    <textarea >{{model.message}}</textarea>
+</div>
 </div>

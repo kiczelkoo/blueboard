@@ -2,10 +2,12 @@
 export class NoteModel {
 
   message = "message from note model!";
-  cssClass: String;
+  handleCssClass: String;
+  targetCssClass: String;
 
-  constructor(newClass: String) {
-    this.cssClass = newClass;
+  constructor(handleCssClass: String, targetCssClass: String) {
+    this.handleCssClass = handleCssClass;
+    this.targetCssClass = targetCssClass;
   }
 
 
